@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: :truesdk-0.7-releasePartner:@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/truesdk-0.7-releasePartner.aar/4f984b0a155d44e434b40faa4340cb39/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/truesdk-0.7-releasePartner.aar/4f984b0a155d44e434b40faa4340cb39/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/truesdk-0.7-releasePartner.aar/4f984b0a155d44e434b40faa4340cb39/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
