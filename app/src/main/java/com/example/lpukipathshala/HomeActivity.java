@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationHost{
             getSupportFragmentManager().beginTransaction().add(R.id.Frame,new ProductGridFragment()).commit();
         }
     }
+//    Just for checking
     public void navigateTo(Fragment fragment, boolean addToBackstack) {
         FragmentTransaction transaction =
                 getSupportFragmentManager()
