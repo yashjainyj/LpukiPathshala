@@ -129,14 +129,11 @@ public class First_Fragment extends Fragment {
                                             progressDialog.dismiss();
                                             Toast.makeText(getContext(), "Authentication failed.",
                                                     Toast.LENGTH_SHORT).show();
-
                                         }
                                     }
                                 });
                     }
                 }
-
-
             });
         }
 

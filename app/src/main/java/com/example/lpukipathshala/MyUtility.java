@@ -6,4 +6,8 @@ import java.util.List;
 
 public class MyUtility {
     public static List<UserDetails> userDetails ;
+    public static final String  USER_COLLECTION="USERS";
+    public static final String  BOOKS_COLLECTION="BOOKS";
+    public static final String  PROJECT_COLLECTION="PROJECT";
+
 }
