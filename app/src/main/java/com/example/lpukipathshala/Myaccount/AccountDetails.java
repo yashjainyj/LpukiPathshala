@@ -1,8 +1,11 @@
 package com.example.lpukipathshala.Myaccount;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,14 +22,31 @@ import com.example.lpukipathshala.HomeActivity;
 import com.example.lpukipathshala.MainActivity;
 import com.example.lpukipathshala.MyUtility;
 import com.example.lpukipathshala.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountDetails extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     TextView name,location,email,phone,about,cart;
+    FirebaseAuth mAuth;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    DocumentReference documentReference ;
+    StorageReference storageReference;
+    private CircleImageView circleImageView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +59,9 @@ public class AccountDetails extends AppCompatActivity {
         phone = findViewById(R.id.phonenumber);
         about = findViewById(R.id.about);
         cart = findViewById(R.id.cart);
+        circleImageView = findViewById(R.id.circleImageView);
+        mAuth = FirebaseAuth.getInstance();
+        storageReference= FirebaseStorage.getInstance().getReference();
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,16 +70,22 @@ public class AccountDetails extends AppCompatActivity {
                 finish();
             }
         });
+//
 
-        if(MyUtility.userDetails!=null)
-        {
 
-            name.setText(MyUtility.userDetails.get(0).getFname() + " " + MyUtility.userDetails.get(0).getLname());
-            location.setText(MyUtility.userDetails.get(0).getLocation());
-            email.setText(MyUtility.userDetails.get(0).getEmail());
-            phone.setText(MyUtility.userDetails.get(0).getPhone());
-            about.setText(MyUtility.userDetails.get(0).getAbout());
-        }
+//        if(MyUtility.userDetails!=null)
+//        {
+//
+//            name.setText(MyUtility.userDetails.get(0).getFname() + " " + MyUtility.userDetails.get(0).getLname());
+//            location.setText(MyUtility.userDetails.get(0).getLocation());
+//            email.setText(MyUtility.userDetails.get(0).getEmail());
+//            phone.setText(MyUtility.userDetails.get(0).getPhone());
+//            about.setText(MyUtility.userDetails.get(0).getAbout());
+//        }
+
+
+
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,5 +142,47 @@ public class AccountDetails extends AppCompatActivity {
             break;
         }
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        try {
+            File file = File.createTempFile("image","jpg");
+            storageReference =storageReference.child("images/user/"+mAuth.getUid()+"/"+mAuth.getUid() +".jpg");
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    circleImageView.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        documentReference=  firebaseFirestore.collection("Users").document(mAuth.getUid());
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserDetails userDetails = documentSnapshot.toObject(UserDetails.class);
+                name.setText(userDetails.getFname()+" "+userDetails.getLname());
+                location.setText(userDetails.getLocation());
+                email.setText(userDetails.getEmail());
+                phone.setText(userDetails.getPhone());
+                about.setText(userDetails.getAbout());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

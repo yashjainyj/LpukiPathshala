@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lpukipathshala.HomeActivity;
+import com.example.lpukipathshala.MyUtility;
+import com.example.lpukipathshala.Myaccount.EditProfile;
 import com.example.lpukipathshala.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,7 +62,9 @@ public class Register extends Fragment {
                             if (task.isSuccessful()) {
                                 Toast.makeText(view.getContext(), "Successfull", Toast.LENGTH_SHORT).show();
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                                Intent intent = new Intent(view.getContext(), HomeActivity.class);
+                                MyUtility.USER_ID = mAuth.getUid();
+                                Intent intent = new Intent(view.getContext(), EditProfile.class);
+
                                 startActivity(intent);
                                 getActivity().finish();
                             } else {
