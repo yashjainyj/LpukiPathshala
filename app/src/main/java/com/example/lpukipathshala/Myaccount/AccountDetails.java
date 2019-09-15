@@ -1,5 +1,6 @@
 package com.example.lpukipathshala.Myaccount;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.example.lpukipathshala.DataModels.UserDetails;
 import com.example.lpukipathshala.HomeActivity;
 import com.example.lpukipathshala.MainActivity;
 import com.example.lpukipathshala.MyUtility;
+import com.example.lpukipathshala.Myaccount.OurProduct.Product_Sell;
 import com.example.lpukipathshala.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,12 +44,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountDetails extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
-    TextView name,location,email,phone,about,cart;
+    TextView name,location,email,phone,about,cart,sell;
     FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     DocumentReference documentReference ;
     StorageReference storageReference;
+    ProgressDialog progressDialog;
     private CircleImageView circleImageView;
+    ImageView back;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +64,10 @@ public class AccountDetails extends AppCompatActivity {
         phone = findViewById(R.id.phonenumber);
         about = findViewById(R.id.about);
         cart = findViewById(R.id.cart);
+        sell = findViewById(R.id.sell);
         circleImageView = findViewById(R.id.circleImageView);
+        back = findViewById(R.id.back);
+        progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         storageReference= FirebaseStorage.getInstance().getReference();
         cart.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +78,16 @@ public class AccountDetails extends AppCompatActivity {
                 finish();
             }
         });
+        sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountDetails.this, Product_Sell.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 //
 
 
@@ -91,8 +109,6 @@ public class AccountDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AccountDetails.this,EditProfile.class);
                 startActivity(intent);
-                finish();
-
             }
         });
 
@@ -147,15 +163,18 @@ public class AccountDetails extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         try {
             File file = File.createTempFile("image","jpg");
+            progressDialog.setMessage("please wait a while.....");
+            progressDialog.show();
             storageReference =storageReference.child("images/user/"+mAuth.getUid()+"/"+mAuth.getUid() +".jpg");
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     circleImageView.setImageBitmap(bitmap);
+                    back.setImageBitmap(bitmap);
+                    progressDialog.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -181,7 +200,7 @@ public class AccountDetails extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                Toast.makeText(AccountDetails.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

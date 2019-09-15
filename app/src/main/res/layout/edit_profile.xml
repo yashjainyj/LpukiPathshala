@@ -13,7 +13,6 @@
         android:id="@+id/app_bar"
         style="@style/Widget.Shrine.Toolbar"
         app:title="Profile Upate"
-        app:navigationIcon="@drawable/back"
         ></android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -28,7 +27,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@drawable/profilepic"
+                android:src="@color/colorPrimary"
                 tools:layout_editor_absoluteY="168dp"
                 tools:layout_editor_absoluteX="142dp"
                 app:civ_border_width="2dp"
@@ -42,7 +41,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/ic_photo_camera_black_24dp"
                 android:layout_below="@id/circleImageView"
-                android:layout_marginTop="-30dp"
+                android:layout_marginTop="-85dp"
                 android:layout_centerHorizontal="true"
                 />
             <android.support.design.card.MaterialCardView

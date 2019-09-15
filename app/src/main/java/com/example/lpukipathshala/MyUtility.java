@@ -9,5 +9,9 @@ public class MyUtility {
     public static final String  USER_COLLECTION="USERS";
     public static final String  BOOKS_COLLECTION="BOOKS";
     public static final String  PROJECT_COLLECTION="PROJECT";
-    public static  String USER_ID;
+    public static final String BRANCH[]= {"Engineering","Management","Agriculture","Hotel Management and Tourism","Biotechnology","Law","Medical Science","Commerce"};
+
+
+
+
 }

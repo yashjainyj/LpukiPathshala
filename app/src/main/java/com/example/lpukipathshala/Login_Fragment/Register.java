@@ -62,9 +62,7 @@ public class Register extends Fragment {
                             if (task.isSuccessful()) {
                                 Toast.makeText(view.getContext(), "Successfull", Toast.LENGTH_SHORT).show();
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                                MyUtility.USER_ID = mAuth.getUid();
                                 Intent intent = new Intent(view.getContext(), EditProfile.class);
-
                                 startActivity(intent);
                                 getActivity().finish();
                             } else {

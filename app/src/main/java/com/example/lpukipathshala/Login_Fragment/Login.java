@@ -66,9 +66,6 @@ public class Login extends Fragment implements View.OnClickListener {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            MyUtility.USER_ID = mAuth.getUid();
-                            // Sign in success, update UI with the si   gned-in user's information
-
                             Intent intent = new Intent(view.getContext(),HomeActivity.class);
                             startActivity(intent);
                             getActivity().finish();

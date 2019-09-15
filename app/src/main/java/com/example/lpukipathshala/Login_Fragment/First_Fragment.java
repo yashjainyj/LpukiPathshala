@@ -19,13 +19,17 @@ import android.widget.Toast;
 import com.example.lpukipathshala.DataModels.UserDetails;
 import com.example.lpukipathshala.HomeActivity;
 import com.example.lpukipathshala.MyUtility;
+import com.example.lpukipathshala.Myaccount.EditProfile;
 import com.example.lpukipathshala.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.truecaller.android.sdk.ITrueCallback;
 import com.truecaller.android.sdk.TrueButton;
 import com.truecaller.android.sdk.TrueError;
@@ -41,6 +45,7 @@ import static android.content.ContentValues.TAG;
 
 public class First_Fragment extends Fragment {
     TrueSdkScope trueScope;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
@@ -110,9 +115,24 @@ public class First_Fragment extends Fragment {
                     if (task.isSuccessful()) {
                         //Toast.makeText(getContext(), "Successfull", Toast.LENGTH_SHORT).show();
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                        Intent intent = new Intent(getContext(), HomeActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        String phone = trueProfile.phoneNumber.substring(3,13);
+                        UserDetails userDetails  =  new UserDetails(trueProfile.firstName,trueProfile.lastName,phone,trueProfile.email,"","");
+                        firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // progressDialog.dismiss();
+                                Intent intent = new Intent(getContext(), EditProfile.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(getContext(), "Not Updated", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     } else {
                         mAuth.signInWithEmailAndPassword(trueProfile.email, trueProfile.phoneNumber)
                                 .addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {

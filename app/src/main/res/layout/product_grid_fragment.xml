@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,6 +19,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:layout_below="@id/app_bar"
         android:layout_height="match_parent"
         tools:context=".ProductGridFragment">
 
@@ -53,7 +56,6 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/product_grid"
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
             android:background="#E4E0E0"
             android:elevation="6dp"
@@ -69,15 +71,43 @@
                 android:layout_height="match_parent" />
 
         </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 
-
-        <android.support.design.widget.FloatingActionButton
+    <com.github.clans.fab.FloatingActionMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addProduct"
+        app:menu_colorRipple="@color/white"
+        app:menu_icon="@drawable/ic_add_black_24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="34dp"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/white"
+        app:menu_openDirection="up"
+        app:menu_showShadow="true">
+        <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/ic_add_black_24dp"
-            android:layout_margin="40dp"
+            app:fab_label="Add Book"
+            app:fabSize="mini"
+            android:src="@drawable/ic_book_black_24dp"
+            app:fab_colorPressed="@color/white"
+            android:id="@+id/addbook"
+            app:fab_colorNormal="@color/colorAccent"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="Add Equipment"
+            android:src="@drawable/ic_developer_board_black_24dp"
+            app:fabSize="mini"
+            app:fab_colorPressed="@color/white"
+            android:id="@+id/addequi"
+            app:fab_colorNormal="@color/colorAccent"/>
 
-            />
-    </FrameLayout>
-</LinearLayout>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</RelativeLayout>

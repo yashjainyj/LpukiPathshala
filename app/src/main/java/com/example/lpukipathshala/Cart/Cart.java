@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.example.lpukipathshala.HomeActivity;
 import com.example.lpukipathshala.Myaccount.AccountDetails;
 import com.example.lpukipathshala.R;
 
@@ -30,7 +29,7 @@ public class Cart extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Cart.this, HomeActivity.class);
+                Intent intent = new Intent(Cart.this, AccountDetails.class);
                 startActivity(intent);
                 finish();
             }
