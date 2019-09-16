@@ -8,15 +8,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
+import com.example.lpukipathshala.DataModels.Chat_Data;
 import com.example.lpukipathshala.Myaccount.AccountDetails;
 import com.example.lpukipathshala.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart extends AppCompatActivity {
     RecyclerView recyclerView;
+    EditText answer;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,27 +29,26 @@ public class Cart extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-
+        firebaseAuth = FirebaseAuth.getInstance();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Cart.this, AccountDetails.class);
-                startActivity(intent);
                 finish();
             }
         });
+        answer = findViewById(R.id.message);
         recyclerView.setHasFixedSize(true);
-        List<Cart_Details> details = new ArrayList<>();
-        details.add(new Cart_Details("Science","Rs.500"));
-        details.add(new Cart_Details("Science","Rs.500"));
-        details.add(new Cart_Details("Science","Rs.500"));
-        details.add(new Cart_Details("Science","Rs.500"));
-        details.add(new Cart_Details("Science","Rs.500"));
+        List<Chat_Data> details = new ArrayList<>();
+        String u = firebaseAuth.getUid();
+       details.add(new Chat_Data(u,"hy","HELLO"));
+        details.add(new Chat_Data("hy",u,"Hy"));
+        details.add(new Chat_Data(u,u,u));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         Cart_Adapter adapter = new Cart_Adapter(details);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 
     }
 }

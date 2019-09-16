@@ -69,6 +69,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="25dp"
                             android:textColor="#000"
+                            android:id="@+id/product_price"
                             android:text="Rs.410"
                             android:layout_marginTop="15dp"
                             android:layout_below="@+id/authorname"
@@ -78,27 +79,27 @@
                     </RelativeLayout>
 
                 </android.support.design.card.MaterialCardView>
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/favourite"-->
+                <!--android:layout_width="match_parent"-->
+                <!--app:elevation="0dp"-->
+                <!--android:elevation="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--app:backgroundTint="@android:color/transparent"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:src="@drawable/like1" />-->
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/favourite"
-                android:layout_width="match_parent"
-                app:elevation="0dp"
-                android:elevation="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                app:backgroundTint="@android:color/transparent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/like1" />
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/cart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="150dp"
-                android:src="@drawable/cart"
+                android:src="@drawable/like1"
                 android:text="Add to Cart" />
             <TableRow
                android:layout_below="@+id/de"
@@ -137,10 +138,22 @@
                        android:layout_marginLeft="10dp"/>
                    <TextView
                        android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:text="s"
+                       android:layout_height="wrap_content"
+                       android:text=""
                        android:id="@+id/description"
                         android:layout_below="@+id/hr"
+                       android:layout_marginTop="20dp"
+                       android:layout_marginLeft="45dp"
+                       android:layout_marginRight="40dp"
+                       android:textSize="18dp"
+                       />
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text=""
+                       android:textColor="#000000"
+                       android:id="@+id/details"
+                       android:layout_below="@+id/description"
                        android:layout_marginTop="20dp"
                        android:layout_marginLeft="45dp"
                        android:layout_marginRight="40dp"

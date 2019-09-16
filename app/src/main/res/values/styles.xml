@@ -51,4 +51,9 @@
         <item name="fab_colorNormal">@color/colorAccent</item>
         <item name="fab_colorPressed">@color/colorAccent</item>
     </style>
+
+
+    <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:paddingRight">10dp</item>
+    </style>
 </resources>

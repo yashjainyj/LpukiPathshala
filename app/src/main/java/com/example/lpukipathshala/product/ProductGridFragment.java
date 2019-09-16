@@ -2,15 +2,20 @@ package com.example.lpukipathshala.product;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.button.MaterialButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +64,9 @@ public class ProductGridFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
     StorageReference storageReference;
-    ProgressDialog progressDialog;
+    ArrayList<Add_Book_Model> arrayList ;
+            ProgressDialog progressDialog;
+    RecyclerView recyclerView;
         @Override
         public View onCreateView(
                 @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,48 +88,7 @@ public class ProductGridFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 view.findViewById(R.id.product_grid).setBackground(getContext().getDrawable(R.drawable.shr_product_grid_background_shape));
             }
-            RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-            recyclerView.setHasFixedSize(true);
-            ArrayList<Add_Book_Model> arrayList = new ArrayList<>();
-            progressDialog.setMessage("Please wait a while.....");
-            progressDialog.show();
-            collectionReference = firebaseFirestore.collection("BOOKS");
-            collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for(QueryDocumentSnapshot queryDocumentSnapshots1 : queryDocumentSnapshots)
-                    {
-                        Add_Book_Model productEntry = queryDocumentSnapshots1.toObject(Add_Book_Model.class);
-                        if(!productEntry.getUserId().equalsIgnoreCase(mAuth.getUid()))
-                        arrayList.add(new Add_Book_Model(productEntry.getBookName(),productEntry.getPrice(),productEntry.getPicUrl()));
-                    }
-                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL , false);
-                    ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(view.getContext(),arrayList);
-                    // StaggeredProductCardRecyclerViewAdapter adapter = new StaggeredProductCardRecyclerViewAdapter(arrayList);
-                    recyclerView.setAdapter(adapter);
-                    gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                        @Override
-                        public int getSpanSize(int position) {
-                            return 1;
-                        }
-                    });
-                    recyclerView.setLayoutManager(gridLayoutManager);
-//            int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large);
-//            int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small);
-                    int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
-                    int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
-                    recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                    Log.i("msl;fdmslf", "onFailure: ----------------------------- Fail");
-                }
-            });
-//
-
+           fetchData(view);
             return view;
         }
 
@@ -160,9 +126,125 @@ public class ProductGridFragment extends Fragment {
             });
         }
 
+
+        void fetchData(View view)
+        {
+            recyclerView = view.findViewById(R.id.recycler_view);
+            recyclerView.setHasFixedSize(true);
+            arrayList = new ArrayList<>();
+            progressDialog.setMessage("Please wait a while.....");
+            progressDialog.show();
+            collectionReference = firebaseFirestore.collection("BOOKS");
+            collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for(QueryDocumentSnapshot queryDocumentSnapshots1 : queryDocumentSnapshots)
+                    {
+                        Add_Book_Model productEntry = queryDocumentSnapshots1.toObject(Add_Book_Model.class);
+                        if(!productEntry.getUserId().equalsIgnoreCase(mAuth.getUid()))
+                            arrayList.add(new Add_Book_Model(productEntry.getUserId(),productEntry.getBookId(),productEntry.getBookName(),productEntry.getAuthorName(),productEntry.getEdition(),productEntry.getBranch(),productEntry.getDescription(),productEntry.getPrice(),productEntry.getPicUrl()));
+                    }
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL , false);
+                    ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(view.getContext(),arrayList);
+                    // StaggeredProductCardRecyclerViewAdapter adapter = new StaggeredProductCardRecyclerViewAdapter(arrayList);
+                    recyclerView.setAdapter(adapter);
+                    gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                        @Override
+                        public int getSpanSize(int position) {
+                            return 1;
+                        }
+                    });
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    progressDialog.dismiss();
+//            int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large);
+//            int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small);
+                    int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
+                    int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
+                    recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Log.i("msl;fdmslf", "onFailure: ----------------------------- Fail");
+                }
+            });
+//
+
+        }
+
+
+        void getData(String q)
+        {
+            recyclerView = getView().findViewById(R.id.recycler_view);
+            recyclerView.setHasFixedSize(true);
+            collectionReference = firebaseFirestore.collection("BOOKS");
+            collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    arrayList = new ArrayList<>();
+                    for(QueryDocumentSnapshot queryDocumentSnapshots1 : queryDocumentSnapshots)
+                    {
+                        Add_Book_Model productEntry = queryDocumentSnapshots1.toObject(Add_Book_Model.class);
+                        if(!productEntry.getUserId().equalsIgnoreCase(mAuth.getUid()))
+                        {
+                            String bookName = productEntry.getBookName();
+                            bookName= bookName.toLowerCase();
+                            String s1 = q.toLowerCase();
+                            if(bookName.contains(s1))
+                                arrayList.add(new Add_Book_Model(productEntry.getUserId(),productEntry.getBookId(),productEntry.getBookName(),productEntry.getAuthorName(),productEntry.getEdition(),productEntry.getBranch(),productEntry.getDescription(),productEntry.getPrice(),productEntry.getPicUrl()));
+
+                        }
+
+                    }
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL , false);
+                    ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(getView().getContext(),arrayList);
+                    // StaggeredProductCardRecyclerViewAdapter adapter = new StaggeredProductCardRecyclerViewAdapter(arrayList);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+//                            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                                @Override
+//                                public int getSpanSize(int position) {
+//                                    return 1;
+//                                }
+//                            });
+//                            recyclerView.setLayoutManager(gridLayoutManager);
+//
+////            int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large);
+////            int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small);
+//                            int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
+//                            int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
+//                            recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Log.i("msl;fdmslf", "onFailure: ----------------------------- Fail");
+                }
+            });
+        }
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
             menuInflater.inflate(R.menu.menu_option, menu);
+            MenuItem search = menu.findItem(R.id.search);
+            final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) search.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    getData(query);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    getData(newText);
+                    return true;
+                }
+            });
+
         }
 
     @Override
@@ -173,7 +255,7 @@ public class ProductGridFragment extends Fragment {
                 Log.i("Filter","-------------->");
                 break;
             case R.id.search :
-                Log.i("Search","-------------->");
+
                 break;
         }
             return true;

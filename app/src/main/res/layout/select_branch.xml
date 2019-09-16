@@ -136,6 +136,19 @@
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/profile"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="50dp"
+                android:id="@+id/other"
+                android:singleLine="true"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:hint="Other"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/profile"/>
         </LinearLayout>
 
     </ScrollView>
