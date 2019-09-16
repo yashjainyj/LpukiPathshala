@@ -40,8 +40,9 @@ Context context;
             Add_Book_Model product = productList.get(position);
             holder.productTitle.setText(product.getBookName());
             holder.productPrice.setText(product.getPrice());
+            holder.b_id = product.getBookId();
+            holder.u_id = product.getUserId();
             Glide.with(context).load(product.getPicUrl()).into(holder.productImage);
-
         }
     }
 

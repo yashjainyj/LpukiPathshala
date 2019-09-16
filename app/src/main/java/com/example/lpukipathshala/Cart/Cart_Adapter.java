@@ -4,33 +4,47 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lpukipathshala.DataModels.Chat_Data;
 import com.example.lpukipathshala.R;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.List;
 
 public class Cart_Adapter extends RecyclerView.Adapter<Cart_Adapter.CartViewHolder> {
 
-    List<Cart_Details> details;
-    public Cart_Adapter(List<Cart_Details> details) {
+    public static final int LEFT_VIEW=0;
+    public static final int RIGHT_VIEW=1;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    List<Chat_Data> details;
+    public Cart_Adapter(List<Chat_Data> details) {
         this.details = details;
     }
 
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cart_layout,viewGroup,false);
-        CartViewHolder cartViewHolder=new CartViewHolder(view);
-        return cartViewHolder;
+       if(i==RIGHT_VIEW)
+       {
+           View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.right_message,viewGroup,false);
+           return new CartViewHolder(view);
+       }
+       else
+       {
+           View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.left_message,viewGroup,false);
+           return new CartViewHolder(view);
+       }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
-        final Cart_Details recycleItemAdd=details.get(i);
-        cartViewHolder.product_name.setText(recycleItemAdd.getProduct_name());
-        cartViewHolder.product_price.setText(recycleItemAdd.getProduct_price());
+        final Chat_Data recycleItemAdd=details.get(i);
+      cartViewHolder.showmessage.setText(recycleItemAdd.getShow_message());
     }
 
     @Override
@@ -39,15 +53,20 @@ public class Cart_Adapter extends RecyclerView.Adapter<Cart_Adapter.CartViewHold
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder{
-        public ImageView product_image;
-        public TextView product_name,product_price;
-        public ImageButton delete;
+       TextView showmessage;
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            product_image = itemView.findViewById(R.id.product_image);
-            product_price = itemView.findViewById(R.id.product_price);
-            product_name = itemView.findViewById(R.id.productname);
-            delete = itemView.findViewById(R.id.delete);
+           showmessage = itemView.findViewById(R.id.left);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(mAuth.getUid().toString().equalsIgnoreCase(details.get(position).getSender_id()))
+        {
+            return RIGHT_VIEW;
+        }
+        else
+            return LEFT_VIEW;
     }
 }

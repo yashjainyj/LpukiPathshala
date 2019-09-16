@@ -10,7 +10,7 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/app_bar"
         style="@style/Widget.Shrine.Toolbar"
-        app:title="Cart"
+        app:title="Chat"
         app:navigationIcon="@drawable/back"
         ></android.support.v7.widget.Toolbar>
 
@@ -18,55 +18,59 @@
     android:layout_width="match_parent"
     android:layout_below="@+id/app_bar"
     android:id="@+id/recycler_view"
-    android:layout_above="@+id/tot"
+android:layout_above="@+id/answer"
+    android:layout_marginBottom="10dp"
     android:layout_height="match_parent">
 
 </android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Amount  "
-        android:textColor="#fff"
-        android:layout_marginLeft="30dp"
-        android:id="@+id/tot"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/checkout"/>
+    <!---->
+    <!---->
+    <!--<TableRow-->
+        <!--android:id="@+id/hr"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@+id/tot"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="#444"></TableRow>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content"
-        android:text="Rs.1000"
-        android:textColor="#8BC34A"
-        android:layout_marginRight="30dp"
-        android:id="@+id/total"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"
-        android:textSize="20dp"
-        android:layout_above="@+id/checkout"/>
-    <TableRow
-        android:id="@+id/hr"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tot"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="#444"></TableRow>
+        android:id="@+id/answer"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginRight="65dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="50dp"
+            android:id="@+id/other"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:inputType="textCapSentences|textMultiLine"
+            android:isScrollContainer="true"
+            android:singleLine="false"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:maxLines="5"
+            android:hint="Message"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edit_text_round"/>
 
-    <android.support.design.button.MaterialButton
-        android:id="@+id/checkout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:textColor="#FFFFFF"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:cornerRadius="30dp"
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_send_black_24dp"
+            android:layout_marginTop="7dp"/>
 
-        android:text="Checkout" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

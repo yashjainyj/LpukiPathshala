@@ -47,6 +47,7 @@ public class AddBook extends AppCompatActivity {
     private String selected_edition,selected_branch,Selected_Degree;
     Button add;
     boolean selectedition[]= new boolean[8];
+    boolean selectebranch[]= new boolean[9];
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference ;
@@ -459,15 +460,22 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for(int i=0;i<8;i++)
-                    selectedition[i]=false;
+                    selectebranch[i]=false;
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddBook.this).setTitle("Choose Branch");
                 View view = getLayoutInflater().inflate(R.layout.select_branch,null);
 
-                EditText edittext[] = {view.findViewById(R.id.engineering) ,view.findViewById(R.id.management),view.findViewById(R.id.agriculture),view.findViewById(R.id.hotel),view.findViewById(R.id.biotechnology),view.findViewById(R.id.law),view.findViewById(R.id.medicalscience),view.findViewById(R.id.commerce)};
+                EditText edittext[] = {view.findViewById(R.id.engineering) ,view.findViewById(R.id.management),view.findViewById(R.id.agriculture),view.findViewById(R.id.hotel),view.findViewById(R.id.biotechnology),view.findViewById(R.id.law),view.findViewById(R.id.medicalscience),view.findViewById(R.id.commerce),view.findViewById(R.id.other)};
                 builder.setView(view);
                 builder.setPositiveButton("Select", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(!edittext[8].getText().toString().equalsIgnoreCase("")) {
+                            selected_branch = edittext[8].getText().toString();
+                            //Selected_Degree = "" + selected_branch;
+                            edittext[8].setText(selected_branch);
+
+
+                        }
                         branch.setText(selected_branch);
                         dialog.dismiss();
                     }
@@ -490,17 +498,17 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[0]==false)
+                        if(selectebranch[0]==false)
                         {
-                            selectedition[0] = true;
+                            selectebranch[0] = true;
                             edittext[0].setCursorVisible(false);
                             edittext[0].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[0].setHintTextColor(Color.BLACK);
 
                         }
-                        for(int i=1;i<8;i++)
+                        for(int i=1;i<9;i++)
                         {
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -524,18 +532,18 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[1]==false)
+                        if(selectebranch[1]==false)
                         {
-                            selectedition[1] = true;
+                            selectebranch[1] = true;
                             edittext[1].setCursorVisible(false);
                             edittext[1].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[1].setHintTextColor(Color.BLACK);
                         }
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==1)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setText("");
                             edittext[i].setCursorVisible(false);
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -560,19 +568,19 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[2]==false)
+                        if(selectebranch[2]==false)
                         {
-                            selectedition[2] = true;
+                            selectebranch[2] = true;
                             edittext[2].setCursorVisible(false);
                             edittext[2].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[2].setHintTextColor(Color.BLACK);
                         }
 
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==2)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -596,19 +604,19 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[3]==false)
+                        if(selectebranch[3]==false)
                         {
-                            selectedition[3] = true;
+                            selectebranch[3] = true;
                             edittext[3].setCursorVisible(false);
                             edittext[3].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[3].setHintTextColor(Color.BLACK);
                         }
 
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==3)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -633,19 +641,19 @@ public class AddBook extends AppCompatActivity {
                         });
                         popup.show();
 
-                        if(selectedition[4]==false)
+                        if(selectebranch[4]==false)
                         {
-                            selectedition[4] = true;
+                            selectebranch[4] = true;
                             edittext[4].setCursorVisible(false);
                             edittext[4].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[4].setHintTextColor(Color.BLACK);
                         }
 
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==4)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -670,18 +678,18 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[6]==false)
+                        if(selectebranch[6]==false)
                         {
-                            selectedition[6] = true;
+                            selectebranch[6] = true;
                             edittext[6].setCursorVisible(false);
                             edittext[6].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[6].setHintTextColor(Color.BLACK);
                         }
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==6)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -705,18 +713,18 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[5]==false)
+                        if(selectebranch[5]==false)
                         {
-                            selectedition[5] = true;
+                            selectebranch[5] = true;
                             edittext[5].setCursorVisible(false);
                             edittext[5].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[5].setHintTextColor(Color.BLACK);
                         }
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==5)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
@@ -741,19 +749,46 @@ public class AddBook extends AppCompatActivity {
                             }
                         });
                         popup.show();
-                        if(selectedition[7]==false)
+                        if(selectebranch[7]==false)
                         {
-                            selectedition[7] = true;
+                            selectebranch[7] = true;
                             edittext[7].setCursorVisible(false);
                             edittext[7].setBackground(getResources().getDrawable(R.drawable.asscent));
                             edittext[7].setHintTextColor(Color.BLACK);
                         }
 
-                        for(int i=0;i<8;i++)
+                        for(int i=0;i<9;i++)
                         {
                             if(i==7)
                                 continue;
-                            selectedition[i]=false;
+                            selectebranch[i]=false;
+                            edittext[i].setCursorVisible(false);
+                            edittext[i].setText("");
+                            edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
+                            edittext[i].setHintTextColor(Color.GRAY);
+                        }
+                    }
+                });
+
+                edittext[8].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (selectebranch[8] == false) {
+                            selectebranch[8] = true;
+                            edittext[8].setCursorVisible(true);
+                            edittext[8].setBackground(getResources().getDrawable(R.drawable.asscent));
+                            edittext[8].setHintTextColor(Color.GRAY);
+                        }
+                        else {
+                            selectebranch[8] = false;
+                            edittext[8].setCursorVisible(true);
+                            edittext[8].setBackground(getResources().getDrawable(R.drawable.asscent));
+                            edittext[8].setHintTextColor(Color.GRAY);
+                        }
+                        for (int i = 0; i < 9; i++) {
+                            if (i == 8)
+                                continue;
+                            selectebranch[i] = false;
                             edittext[i].setCursorVisible(false);
                             edittext[i].setText("");
                             edittext[i].setBackground(getResources().getDrawable(R.drawable.profile));
