@@ -9,7 +9,7 @@
         android:layout_below="@+id/app_bar"
         android:background="@drawable/profile"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:id="@+id/cartdetail"
@@ -42,11 +42,11 @@
                 />
             <ImageView
                 android:layout_width="100dp"
-                android:layout_height="match_parent"
+                android:layout_height="150dp"
                 android:src="@drawable/a"
                 android:id="@+id/product_image"
                 android:layout_alignParentRight="true"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
                 />
 
             <ImageButton
