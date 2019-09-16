@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "39037336038-li4ek76vac7mp5pq8a0k0b1t4o3fak94.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.lpukipathshala",
-            "certificate_hash": "b4c162398177b3e84aed626ead377b05f91cc6c2"
-          }
-        },
-        {
           "client_id": "39037336038-u4ubobi77rakv5ql98b6ns9frjvujc6f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
