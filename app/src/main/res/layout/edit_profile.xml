@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,8 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/app_bar"
         style="@style/Widget.Shrine.Toolbar"
-        app:title="@string/app_name"
-        app:navigationIcon="@drawable/back"
+        app:title="Profile Upate"
         ></android.support.v7.widget.Toolbar>
 
     <ScrollView
@@ -23,6 +23,27 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@color/colorPrimary"
+                tools:layout_editor_absoluteY="168dp"
+                tools:layout_editor_absoluteX="142dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorAccent"
+                android:layout_marginTop="51dp"
+                android:id="@+id/circleImageView"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_photo_camera_black_24dp"
+                android:layout_below="@id/circleImageView"
+                android:layout_marginTop="-85dp"
+                android:layout_centerHorizontal="true"
+                />
             <android.support.design.card.MaterialCardView
                 android:background="@drawable/profile"
                 android:layout_width="match_parent"
@@ -30,6 +51,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:id="@+id/cartdetail"
+                android:layout_below="@+id/circleImageView"
                 android:layout_marginBottom="25dp"
                 android:layout_centerHorizontal="true">
 
@@ -100,7 +122,8 @@
                             android:layout_width="match_parent"
                             android:id="@+id/phonenumber1"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="number"
+                            android:maxLength="10"
                             android:maxLines="1" />
                     </android.support.design.widget.TextInputLayout>
 

@@ -1,11 +1,14 @@
 package com.example.lpukipathshala.product;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.example.lpukipathshala.DataModels.Add_Book_Model;
 import com.example.lpukipathshala.R;
 
 import java.util.ArrayList;
@@ -15,11 +18,12 @@ import java.util.ArrayList;
 */
 public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
 
-   private ArrayList<ProductEntry> productList;
+   private ArrayList<Add_Book_Model> productList;
+Context context;
 
-
-   ProductCardRecyclerViewAdapter(ArrayList<ProductEntry> productList) {
+   ProductCardRecyclerViewAdapter(Context context,ArrayList<Add_Book_Model> productList) {
        this.productList = productList;
+       this.context = context;
    }
 
    @NonNull
@@ -33,9 +37,10 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         if (productList != null && position < productList.size()) {
-            ProductEntry product = productList.get(position);
-            holder.productTitle.setText(product.title);
-            holder.productPrice.setText(product.price);
+            Add_Book_Model product = productList.get(position);
+            holder.productTitle.setText(product.getBookName());
+            holder.productPrice.setText(product.getPrice());
+            Glide.with(context).load(product.getPicUrl()).into(holder.productImage);
 
         }
     }

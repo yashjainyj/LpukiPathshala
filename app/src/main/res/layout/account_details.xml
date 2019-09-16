@@ -31,12 +31,12 @@
                 android:id="@+id/back"
                 android:tint="#70000000"
                 android:scaleType="fitXY"
-                android:src="@drawable/profilepic" />
+                android:src="@color/colorPrimary" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@drawable/profilepic"
+                android:src="@color/colorPrimary"
                 tools:layout_editor_absoluteY="168dp"
                 tools:layout_editor_absoluteX="142dp"
                 app:civ_border_width="2dp"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="John Smith"
+                android:text=""
                 android:layout_marginTop="5dp"
                 android:id="@+id/name"
                 android:layout_below="@id/circleImageView"
@@ -67,28 +67,26 @@
                 app:cardPreventCornerOverlap="true"
                 android:layout_marginBottom="15dp"
                 android:layout_centerHorizontal="true">
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
+              <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
                    <ImageView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:src="@drawable/like"
                        android:layout_alignParentLeft="true"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginLeft="65dp"/>
+                       android:layout_marginStart="45dp"
+                       android:layout_marginTop="15dp" />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="Favourites"
                        android:layout_marginTop="50dp"
+                       android:textColor="#000000"
                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="45dp"
-                       android:textSize="17dp"/>
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent">
+                       android:layout_marginStart="30dp"
+                       android:textSize="12dp"/>
+
 
                    <ImageView
                        android:layout_width="wrap_content"
@@ -101,15 +99,36 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
+                       android:textColor="#000000"
                        android:text="Cart"
                        android:id="@+id/cart"
                        android:layout_marginTop="50dp"
                        android:layout_alignParentRight="true"
-                       android:layout_marginRight="45dp"
-                       android:textSize="17dp"/>
+                       android:layout_marginRight="47dp"
+                       android:textSize="12dp"/>
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/money"
+                      android:layout_marginTop="15dp"
+                      android:layout_centerHorizontal="true"
+                      android:layout_marginRight="45dp"
+                      android:layout_marginLeft="0dp"/>
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Your Product"
+                      android:id="@+id/sell"
+                      android:layout_marginTop="50dp"
+                      android:textColor="#000000"
+                      android:layout_centerHorizontal="true"
+                      android:layout_marginRight="45dp"
+                      android:textSize="12dp"/>
 
 
-               </RelativeLayout>
+              </RelativeLayout>
+
+
 
             </android.support.design.card.MaterialCardView>
 
@@ -171,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="70dp"
                         android:layout_marginRight="26dp"
-                        android:text="BH6"
+                        android:text=""
                         android:id="@+id/location"
                         android:textColor="#4B4949"
                         android:textSize="13dp"
@@ -200,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="70dp"
                         android:layout_marginRight="30dp"
-                        android:text="jainyash031@gmail.com"
+                        android:text=""
                         android:textColor="#3F51B5"
                         android:textSize="13dp"
                         android:id="@+id/email"
@@ -229,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="70dp"
                         android:layout_marginRight="30dp"
-                        android:text="9630288239"
+                        android:text=""
                         android:id="@+id/phonenumber"
                         android:textColor="#3F51B5"
                         android:textSize="13dp"
@@ -257,7 +276,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="70dp"
                         android:layout_marginRight="30dp"
-                        android:text="hykjsdsknfnfknefknefkanefkanr kanrdglandglknadklgnaldkgndnglkdsnjgsdklg"
+                        android:text=""
                         android:textColor="#807D7D"
                         android:textSize="13dp"
                         android:id="@+id/about"

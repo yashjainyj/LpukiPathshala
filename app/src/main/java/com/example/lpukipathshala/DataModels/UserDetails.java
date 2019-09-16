@@ -17,6 +17,7 @@ public class UserDetails {
         this.location = location;
         this.about = about;
     }
+    public  UserDetails() {}
 
     public String getFname() {
         return fname;
