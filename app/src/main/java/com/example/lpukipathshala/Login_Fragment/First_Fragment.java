@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.truecaller.android.sdk.ITrueCallback;
-import com.truecaller.android.sdk.TrueButton;
 import com.truecaller.android.sdk.TrueError;
 import com.truecaller.android.sdk.TrueProfile;
 import com.truecaller.android.sdk.TrueSDK;
@@ -99,7 +97,7 @@ public class First_Fragment extends Fragment {
 
 
             List<UserDetails> list = new ArrayList<>();
-            list.add(new UserDetails(trueProfile.firstName,trueProfile.lastName,trueProfile.phoneNumber,trueProfile.email,trueProfile.city,""));
+            list.add(new UserDetails(trueProfile.firstName,trueProfile.lastName,trueProfile.phoneNumber,trueProfile.email,trueProfile.city,"", ""));
             MyUtility.userDetails = list;
             FirebaseAuth mAuth;
             ProgressDialog progressDialog;
@@ -116,7 +114,7 @@ public class First_Fragment extends Fragment {
                         //Toast.makeText(getContext(), "Successfull", Toast.LENGTH_SHORT).show();
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         String phone = trueProfile.phoneNumber.substring(3,13);
-                        UserDetails userDetails  =  new UserDetails(trueProfile.firstName,trueProfile.lastName,phone,trueProfile.email,"","");
+                        UserDetails userDetails  =  new UserDetails(trueProfile.firstName,trueProfile.lastName,phone,trueProfile.email,"","", "");
                         firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

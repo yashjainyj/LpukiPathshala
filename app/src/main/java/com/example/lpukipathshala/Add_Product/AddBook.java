@@ -106,9 +106,6 @@ public class AddBook extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 if(!TextUtils.isEmpty(bname.getText()) && !TextUtils.isEmpty(bauthor.getText()) && !TextUtils.isEmpty(desc.getText()) && !TextUtils.isEmpty(bEdition.getText()) && !TextUtils.isEmpty(branch.getText())&& !TextUtils.isEmpty(price.getText()))
                 {
                     progressDialog.setMessage("please wait a while.....");

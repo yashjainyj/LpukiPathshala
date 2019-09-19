@@ -2,50 +2,35 @@ package com.example.lpukipathshala.Myaccount;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.button.MaterialButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lpukipathshala.DataModels.UserDetails;
 import com.example.lpukipathshala.HomeActivity;
-import com.example.lpukipathshala.MyUtility;
 import com.example.lpukipathshala.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static java.security.AccessController.getContext;
 
 public class EditProfile extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
@@ -57,7 +42,7 @@ public class EditProfile extends AppCompatActivity {
     private Uri uriProfileImage;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private StorageReference storageReference;
-    String profileUrl;
+    Uri profileUrl;
     ProgressDialog progressDialog;
     DocumentReference documentReference ;
     FirebaseAuth mAuth;
@@ -112,8 +97,10 @@ public class EditProfile extends AppCompatActivity {
                     d.putFile(uriProfileImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            profileUrl = storageReference.getDownloadUrl().toString();
-                            //Toast.makeText(EditProfile.this, "Upload Success" + profileUrl, Toast.LENGTH_SHORT).show();
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+//                            while(!uri.isComplete());
+//                            profileUrl = uri.getResult();
+                            Toast.makeText(EditProfile.this, "Upload Success" + uri.getResult().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -123,7 +110,7 @@ public class EditProfile extends AppCompatActivity {
                         }
                     });
                 }
-              UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString());
+              UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), "");
               //MyUtility.userDetails = list;
 
                 firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {

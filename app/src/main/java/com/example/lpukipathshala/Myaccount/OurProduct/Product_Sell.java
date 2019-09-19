@@ -69,12 +69,9 @@ public class Product_Sell extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         storageReference= FirebaseStorage.getInstance().getReference();
     }
-
-
-    @Override
+  @Override
     protected void onStart() {
         super.onStart();
-
         collectionReference = firebaseFirestore.collection("BOOKS");
         List<Add_Book_Model> list = new ArrayList<>();
         progressDialog.setMessage("please wait a while.....");
@@ -85,7 +82,7 @@ public class Product_Sell extends AppCompatActivity {
                 for(QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots)
                 {
                     Add_Book_Model add_book_model = queryDocumentSnapshot.toObject(Add_Book_Model.class);
-                    list.add(new Add_Book_Model(add_book_model.getBookName(),add_book_model.getPrice(),add_book_model.getPicUrl()));
+                    list.add(new Add_Book_Model(add_book_model.getBookName(),add_book_model.getPrice(),add_book_model.getPicUrl(),add_book_model.getBookId()));
 
                 }
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Product_Sell.this);

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.lpukipathshala.Cart.Cart;
 import com.example.lpukipathshala.DataModels.UserDetails;
 import com.example.lpukipathshala.HomeActivity;
@@ -163,45 +164,52 @@ public class AccountDetails extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        try {
-            File file = File.createTempFile("image","jpg");
-            progressDialog.setMessage("please wait a while.....");
-            progressDialog.show();
-            storageReference =storageReference.child("images/user/"+mAuth.getUid()+"/"+mAuth.getUid() +".jpg");
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+        if (!mAuth.getUid().equalsIgnoreCase(""))
+        {
+//            try {
+//
+//                File file = File.createTempFile("image","jpg");
+//                progressDialog.setMessage("please wait a while.....");
+//                progressDialog.show();
+//                storageReference =storageReference.child("images/user/"+mAuth.getUid()+"/"+mAuth.getUid() +".jpg");
+//                storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+//                        circleImageView.setImageBitmap(bitmap);
+//                        back.setImageBitmap(bitmap);
+//                        progressDialog.dismiss();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+            documentReference=  firebaseFirestore.collection("Users").document(mAuth.getUid());
+            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    circleImageView.setImageBitmap(bitmap);
-                    back.setImageBitmap(bitmap);
-                    progressDialog.dismiss();
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    UserDetails userDetails = documentSnapshot.toObject(UserDetails.class);
+                    name.setText(userDetails.getFname()+" "+userDetails.getLname());
+                    location.setText(userDetails.getLocation());
+                    email.setText(userDetails.getEmail());
+                    phone.setText(userDetails.getPhone());
+                    about.setText(userDetails.getAbout());
+                    Glide.with(AccountDetails.this).load(userDetails.getPic_url()).into(circleImageView);
+                    Glide.with(AccountDetails.this).load(userDetails.getPic_url()).into(back);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    Toast.makeText(AccountDetails.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        documentReference=  firebaseFirestore.collection("Users").document(mAuth.getUid());
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                UserDetails userDetails = documentSnapshot.toObject(UserDetails.class);
-                name.setText(userDetails.getFname()+" "+userDetails.getLname());
-                location.setText(userDetails.getLocation());
-                email.setText(userDetails.getEmail());
-                phone.setText(userDetails.getPhone());
-                about.setText(userDetails.getAbout());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AccountDetails.this, "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

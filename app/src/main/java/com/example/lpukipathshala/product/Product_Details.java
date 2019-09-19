@@ -145,6 +145,8 @@ public class Product_Details extends AppCompatActivity {
         {
             case R.id.chat :
                 Intent intent = new Intent(Product_Details.this,Cart.class);
+                intent.putExtra("u_id",u_id);
+                intent.putExtra("b_id",b_id);
                 startActivity(intent);
                 break;
         }

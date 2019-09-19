@@ -16,10 +16,11 @@ public class Add_Book_Model  {
 
     public Add_Book_Model() {}
 
-    public Add_Book_Model(String bookName, String price, String picUrl) {
+    public Add_Book_Model(String bookName, String price, String picUrl,String bookId) {
         this.bookName = bookName;
         this.price = price;
         this.picUrl = picUrl;
+        this.bookId = bookId;
     }
 
     public Add_Book_Model(String userId, String bookId, String bookName, String authorName, String edition, String branch, String description, String price,String picUrl) {

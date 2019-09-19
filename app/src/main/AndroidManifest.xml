@@ -29,6 +29,7 @@
         <activity android:name=".Myaccount.EditProfile"></activity>
         <activity android:name=".product.Product_Details"></activity>
         <activity android:name=".Cart.Cart"></activity>
+        <activity android:name=".Cart.Chat_Dsiplay"></activity>
         <activity android:name=".Myaccount.OurProduct.Product_Sell" android:screenOrientation="portrait"></activity>
         <activity android:name=".Category.Category_Main"></activity>
         <meta-data android:name="com.truecaller.android.sdk.PartnerKey" android:value="@string/partnerKey"/>
