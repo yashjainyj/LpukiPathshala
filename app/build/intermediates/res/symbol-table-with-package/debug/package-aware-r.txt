@@ -1084,11 +1084,14 @@ drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable add
+drawable addquestion
 drawable avatar
 drawable avd_hide_password
 drawable avd_show_password
 drawable back
+drawable backtothepage
 drawable buttonblue
+drawable camera
 drawable cart
 drawable close
 drawable com_truecaller_icon
@@ -1130,6 +1133,7 @@ drawable filter
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable homebackground
+drawable homeormainpage
 drawable ic_comment_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -1167,6 +1171,7 @@ drawable profile
 drawable profilepic
 drawable queuser
 drawable search
+drawable sendbutton
 drawable shr_product_grid_background_shape
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1428,6 +1433,7 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id scrollofans
 id search
 id search_badge
 id search_bar

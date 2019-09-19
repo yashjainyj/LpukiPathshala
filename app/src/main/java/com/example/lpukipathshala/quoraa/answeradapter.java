@@ -3,10 +3,15 @@ package com.example.lpukipathshala.quoraa;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.example.lpukipathshala.R;
@@ -50,11 +55,23 @@ public class answeradapter extends RecyclerView.Adapter<answeradapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView answertext;
+        ScrollView scrollofans;
         ImageView answerimg;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             answerimg = itemView.findViewById(R.id.Answershowimage);
             answertext = itemView.findViewById(R.id.ansshowtext1);
+            scrollofans = itemView.findViewById(R.id.scrollofans);
+
+//            scrollofans.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    v.getParent().requestDisallowInterceptTouchEvent(true);
+//                    return false;
+//                }
+//
+//            });
+            answertext.setMovementMethod(new ScrollingMovementMethod());
         }
     }
 }

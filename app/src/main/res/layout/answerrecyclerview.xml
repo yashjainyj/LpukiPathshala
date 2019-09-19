@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,21 +30,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/answerdetails"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="4dp"
                 android:layout_below="@id/app_bar"
                 android:layout_above="@id/answerbox"
                 >
 
             </android.support.v7.widget.RecyclerView>
-
-    <TableRow
-        android:id="@+id/hr"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/answerbox"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="5dp"
-        android:background="#444"></TableRow>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,21 +55,26 @@
             android:layout_marginRight="70dp"
             android:hint="Type Answer....">
 
-            <android.support.design.widget.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:id="@+id/answer"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="10"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                android:inputType="textMultiLine"
+                />
         </android.support.design.widget.TextInputLayout>
 <ImageButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
     android:layout_marginRight="80dp"
     android:layout_marginTop="20dp"
+    android:background="@null"
     android:id="@+id/uploadimageofans"
     android:layout_alignParentRight="true"
-    android:src="@drawable/avatar">
+    android:src="@drawable/camera">
 </ImageButton>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:layout_marginTop="12dp"
             android:id="@+id/uploadanswer"
             android:layout_marginRight="10dp"
-            android:src="@drawable/add"
+            android:src="@drawable/sendbutton"
             >
 
         </android.support.design.widget.FloatingActionButton>

@@ -10,9 +10,11 @@
         android:layout_below="@+id/app_bar"
         android:background="@drawable/profile"
         android:layout_width="match_parent"
+        android:outlineSpotShadowColor="@color/common_google_signin_btn_text_light_disabled"
+        android:outlineAmbientShadowColor="@color/blue"
         app:cardCornerRadius="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/cartdetail"
         android:layout_centerHorizontal="true">
         <RelativeLayout
@@ -22,22 +24,13 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:id="@+id/Answershowimage"
-                android:padding="0dp"
-
                 android:paddingVertical="5dp"
-                android:paddingTop="5dp"
                 android:src="@drawable/a"
                 >
             </ImageView>
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Answershowimage"
-                android:padding="8dp"
-                android:id="@+id/sc2"
-                >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -50,17 +43,24 @@
 
 
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/ansshowtext"
-                        style="@style/Widget.Shrine.TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/name2"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:minHeight="20dp">
-
-                        <android.support.design.widget.TextInputEditText
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollofans"
+>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/ansshowtext1"
+                            android:padding="10dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:maxLines="5"
+                            android:layout_margin="15dp"
+                            android:background="@drawable/profile"
+                            android:scrollbars="vertical"
+                            android:inputType="textMultiLine"
+                            /></ScrollView>
+                        <!--<android.support.design.widget.TextInputEditText
                             android:id="@+id/ansshowtext1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -68,10 +68,8 @@
                             android:maxLines="1"
                             android:focusableInTouchMode="false"
                             android:cursorVisible="false"
-                            />
-                    </android.support.design.widget.TextInputLayout>
+                            />-->
                 </LinearLayout>
-            </ScrollView>
         </RelativeLayout>
     </android.support.design.card.MaterialCardView>
 </RelativeLayout>
