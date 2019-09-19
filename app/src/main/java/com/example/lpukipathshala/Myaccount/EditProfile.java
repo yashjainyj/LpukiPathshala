@@ -98,9 +98,9 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-//                            while(!uri.isComplete());
-//                            profileUrl = uri.getResult();
-                            Toast.makeText(EditProfile.this, "Upload Success" + uri.getResult().toString(), Toast.LENGTH_SHORT).show();
+                           while(!uri.isComplete());
+                            profileUrl = uri.getResult();
+                           // Toast.makeText(EditProfile.this, "Upload Success" + uri.getResult().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -110,7 +110,7 @@ public class EditProfile extends AppCompatActivity {
                         }
                     });
                 }
-              UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), "");
+              UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), profileUrl.toString());
               //MyUtility.userDetails = list;
 
                 firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
