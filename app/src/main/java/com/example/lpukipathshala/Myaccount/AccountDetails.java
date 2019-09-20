@@ -46,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountDetails extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     TextView name,location,email,phone,about,cart,sell;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     DocumentReference documentReference ;
     StorageReference storageReference;
@@ -166,11 +166,12 @@ public class AccountDetails extends AppCompatActivity {
         super.onStart();
         if (!mAuth.getUid().equalsIgnoreCase(""))
         {
+            progressDialog.setMessage("please wait a while.....");
+             progressDialog.show();
 //            try {
 //
 //                File file = File.createTempFile("image","jpg");
-//                progressDialog.setMessage("please wait a while.....");
-//                progressDialog.show();
+//
 //                storageReference =storageReference.child("images/user/"+mAuth.getUid()+"/"+mAuth.getUid() +".jpg");
 //                storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
 //                    @Override
@@ -202,6 +203,7 @@ public class AccountDetails extends AppCompatActivity {
                     about.setText(userDetails.getAbout());
                     Glide.with(AccountDetails.this).load(userDetails.getPic_url()).into(circleImageView);
                     Glide.with(AccountDetails.this).load(userDetails.getPic_url()).into(back);
+                    progressDialog.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -209,6 +211,12 @@ public class AccountDetails extends AppCompatActivity {
                     Toast.makeText(AccountDetails.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        else
+        {
+            Intent intent = new Intent(AccountDetails.this,MainActivity.class);
+            startActivity(intent);
+            finishAffinity();
         }
 
     }

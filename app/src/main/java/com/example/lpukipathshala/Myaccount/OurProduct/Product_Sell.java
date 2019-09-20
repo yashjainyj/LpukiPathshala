@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lpukipathshala.Cart.Cart;
@@ -48,6 +49,7 @@ public class Product_Sell extends AppCompatActivity {
     private CollectionReference collectionReference;
     StorageReference storageReference;
     ProgressDialog progressDialog;
+    TextView textView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class Product_Sell extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        textView = findViewById(R.id.no);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,12 +88,21 @@ public class Product_Sell extends AppCompatActivity {
                     list.add(new Add_Book_Model(add_book_model.getBookName(),add_book_model.getPrice(),add_book_model.getPicUrl(),add_book_model.getBookId()));
 
                 }
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Product_Sell.this);
-                Sell_Adapter adapter = new Sell_Adapter (Product_Sell.this,list);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setHasFixedSize(true);
-                progressDialog.dismiss();
+                if(list.isEmpty())
+                {
+                    progressDialog.dismiss();
+                    textView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    textView.setVisibility(View.GONE);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Product_Sell.this);
+                    Sell_Adapter adapter = new Sell_Adapter (Product_Sell.this,list);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setHasFixedSize(true);
+                    progressDialog.dismiss();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

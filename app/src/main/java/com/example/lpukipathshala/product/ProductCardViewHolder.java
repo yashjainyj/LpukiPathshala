@@ -27,7 +27,6 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(itemView.getContext(),Product_Details.class);
-                //Toast.makeText(itemView.getContext(), b_id, Toast.LENGTH_SHORT).show();
                 intent.putExtra("b_id",b_id);
                 itemView.getContext().startActivity(intent);
             }

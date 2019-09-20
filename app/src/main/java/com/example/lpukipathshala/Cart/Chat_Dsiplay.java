@@ -10,11 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.lpukipathshala.DataModels.Chat_Data;
 import com.example.lpukipathshala.Myaccount.AccountDetails;
 import com.example.lpukipathshala.Myaccount.OurProduct.Product_Sell;
 import com.example.lpukipathshala.Myaccount.OurProduct.Sell_Adapter;
+import com.example.lpukipathshala.Notification.Client;
+import com.example.lpukipathshala.Notification.Token;
 import com.example.lpukipathshala.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,7 +38,9 @@ public class Chat_Dsiplay extends AppCompatActivity {
     FirebaseAuth mAuth;
     Set<String> set = new HashSet();
     ProgressDialog progressDialog;
+    TextView textView;
     ArrayList<Chat_Data> list = new ArrayList();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,8 @@ public class Chat_Dsiplay extends AppCompatActivity {
                 finish();
             }
         });
+
+        textView = findViewById(R.id.no);
         progressDialog = new ProgressDialog(this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -63,9 +71,16 @@ public class Chat_Dsiplay extends AppCompatActivity {
 //        list.add("Ishan");
 //        list.add("Vaibhav");
 
-
-
 }
+
+
+private  void updateToken(String token)
+{
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+    Token token1  = new Token(token);
+    reference.child(mAuth.getUid()).setValue(token1);
+}
+
 
     @Override
     protected void onStart() {
@@ -94,13 +109,22 @@ public class Chat_Dsiplay extends AppCompatActivity {
                 for(String s1:set)
                 {
                     list.add(new Chat_Data(s1,b_id));
-                    progressDialog.dismiss();
                 }
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chat_Dsiplay.this);
-                Chat_Display_Adapter adapter = new Chat_Display_Adapter (Chat_Dsiplay.this,list);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setHasFixedSize(true);
+                if(list.isEmpty())
+                {
+                    progressDialog.dismiss();
+                    textView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    textView.setVisibility(View.GONE);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Chat_Dsiplay.this);
+                    Chat_Display_Adapter adapter = new Chat_Display_Adapter (Chat_Dsiplay.this,list);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setHasFixedSize(true);
+                    progressDialog.dismiss();
+                    updateToken(FirebaseInstanceId.getInstance().getToken());
+                }
             }
 
             @Override

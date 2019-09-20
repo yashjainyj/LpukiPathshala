@@ -93,12 +93,12 @@ public class First_Fragment extends Fragment {
 
         @Override
         public void onSuccessProfileShared(@NonNull final TrueProfile trueProfile) {
-            Toast.makeText(getContext(), "Hello " + trueProfile.firstName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Hello " + trueProfile.firstName, Toast.LENGTH_SHORT).show();
 
 
             List<UserDetails> list = new ArrayList<>();
             list.add(new UserDetails(trueProfile.firstName,trueProfile.lastName,trueProfile.phoneNumber,trueProfile.email,trueProfile.city,"", ""));
-            MyUtility.userDetails = list;
+            //MyUtility.userDetails = list;
             FirebaseAuth mAuth;
             ProgressDialog progressDialog;
             progressDialog = new ProgressDialog(getContext());
@@ -118,7 +118,7 @@ public class First_Fragment extends Fragment {
                         firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                // progressDialog.dismiss();
+                                progressDialog.dismiss();
                                 Intent intent = new Intent(getContext(), EditProfile.class);
                                 startActivity(intent);
                                 getActivity().finish();
@@ -138,6 +138,7 @@ public class First_Fragment extends Fragment {
                                     public void onComplete(Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             // Sign in success, update UI with the si   gned-in user's information
+                                            progressDialog.dismiss();
                                             Intent intent = new Intent(getContext(),HomeActivity.class);
                                             startActivity(intent);
                                             getActivity().finish();
@@ -158,7 +159,6 @@ public class First_Fragment extends Fragment {
         @Override
         public void onFailureProfileShared(@NonNull final TrueError trueError) {
             Log.d(TAG, "---------------------------------onFailureProfileShared: " + trueError.getErrorType());
-
         }
 
         @Override

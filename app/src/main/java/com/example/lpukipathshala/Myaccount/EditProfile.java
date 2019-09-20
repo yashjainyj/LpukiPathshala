@@ -100,7 +100,25 @@ public class EditProfile extends AppCompatActivity {
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                            while(!uri.isComplete());
                             profileUrl = uri.getResult();
-                           // Toast.makeText(EditProfile.this, "Upload Success" + uri.getResult().toString(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(EditProfile.this, "Upload Success" + profileUrl.toString(), Toast.LENGTH_SHORT).show();
+                            UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), profileUrl.toString());
+                firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(EditProfile.this, HomeActivity.class);
+                        startActivity(intent);
+                         finishAffinity();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfile.this, "Not Updated", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -110,25 +128,41 @@ public class EditProfile extends AppCompatActivity {
                         }
                     });
                 }
-              UserDetails userDetails  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), profileUrl.toString());
-              //MyUtility.userDetails = list;
-
-                firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                       // progressDialog.dismiss();
-                        Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditProfile.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(EditProfile.this, "Not Updated", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                else
+                {
+                    documentReference=  firebaseFirestore.collection("Users").document(mAuth.getUid());
+                    documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()){
+                                UserDetails userDetails = documentSnapshot.toObject(UserDetails.class);
+                                UserDetails userDetails1  =  new UserDetails(fname.getText().toString(),lname.getText().toString(),phone.getText().toString(),mAuth.getCurrentUser().getEmail(),location.getText().toString(),about.getText().toString(), userDetails.getPic_url());
+                                firebaseFirestore.collection("Users").document(mAuth.getUid()).set(userDetails1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(EditProfile.this, HomeActivity.class);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(EditProfile.this, "Not Updated", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditProfile.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+//
             }
         });
     }

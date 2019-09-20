@@ -55,10 +55,15 @@ public class Register extends Fragment {
     private void registerUser(final View view) {
         String email1 = email.getText().toString();
         String pass = password.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email1, pass)
-                .addOnCompleteListener((Activity) view.getContext(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(Task task) {
+        if(email1.equalsIgnoreCase("") && pass.equalsIgnoreCase(""))
+        {
+            Toast.makeText(view.getContext(), "Field is Empty", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            mAuth.createUserWithEmailAndPassword(email1, pass)
+                    .addOnCompleteListener((Activity) view.getContext(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(Task task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(view.getContext(), "Successfull", Toast.LENGTH_SHORT).show();
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -72,8 +77,7 @@ public class Register extends Fragment {
 
                             }
                         }
-                });
+                    });
+        }
     }
-
-
 }

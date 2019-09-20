@@ -17,6 +17,7 @@ public class UserDetails {
         this.about = about;
         this.pic_url = pic_url;
     }
+
     public  UserDetails() {}
 
     public String getFname() {

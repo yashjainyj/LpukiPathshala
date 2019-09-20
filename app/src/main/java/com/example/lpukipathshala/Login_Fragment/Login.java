@@ -61,28 +61,32 @@ public class Login extends Fragment implements View.OnClickListener {
     private void loginUser(final View view) {
         String email1 = email.getText().toString();
         String pass = password.getText().toString();
-        mAuth.signInWithEmailAndPassword(email1, pass)
-                .addOnCompleteListener((Activity) view.getContext(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(view.getContext(),HomeActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+        if(email1.equalsIgnoreCase("") && pass.equalsIgnoreCase(""))
+        {
+            Toast.makeText(view.getContext(), "Field is Empty", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            mAuth.signInWithEmailAndPassword(email1, pass)
+                    .addOnCompleteListener((Activity) view.getContext(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(view.getContext(),HomeActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            progressDialog.dismiss();
-                            Toast.makeText(view.getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                progressDialog.dismiss();
+                                Toast.makeText(view.getContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
 
+                            }
                         }
-
-                        // ...
-                    }
-                });
+                    });
+        }
     }
-
     @Override
     public void onClick(View v) {
 

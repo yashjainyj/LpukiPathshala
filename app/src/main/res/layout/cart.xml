@@ -19,6 +19,7 @@
     android:layout_below="@+id/app_bar"
     android:id="@+id/recycler_view"
 android:layout_above="@+id/answer"
+
     android:layout_marginBottom="10dp"
     android:layout_height="match_parent">
 
